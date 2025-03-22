@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="bras robotique">
+
+    <!-- Example link -->
+    <link name="base_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+            <box size="0.1 0.1 0.1"/>
+            </geometry>
+        </visual> 
+    </link>
+    <link name="shoulder_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint name="shoulder_joint" type="revolute">
+        <origin xyz="0 0 10" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="shoulder_link"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-3.1416" effort="10.0" upper="3.1416" velocity="1.0"/>
+    </joint>
+    <link name="elbow_link">
+        <visual>
+            <origin xyz="0 0 8" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.1 0.1 0.1"/>
+            </geometry>
+            <material name="red">
+                <color rgba="1 0 0 1"/>
+            </material>
+        </visual>
+    </link>
+    <joint name="elbow_joint" type="revolute">
+        <origin xyz="0 0 8" rpy="0 0 0"/>
+        <parent link="shoulder_link"/>
+        <child link="elbow_link"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-3.1416" upper="3.1416" effort="10.0" velocity="1.0"/>
+    </joint>
+    <link name="wrist_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.1 0.1 0.1"/>
+        </geometry>
+    </visual>
+    </link>
+    <joint name="wrist_joint" type="revolute">
+        <origin xyz="0 0 3" rpy="0 0 0"/>
+        <parent link="elbow_link"/>
+        <child link="wrist_link"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-3.1416" upper="3.1416" effort="10.0" velocity="1.0"/>
+    </joint>
+    <link name="gripper_link">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.1 0.1 0.1"/>
+        </geometry>
+    </visual>
+    </link>
+    <joint name="gripper_joint" type="prismatic">
+        <origin xyz="0 0 2" rpy="0 0 0"/>
+        <parent link="wrist_link"/>
+        <child link="gripper_link"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="0" upper="0.1" velocity="1.0" effort="5.0" />
+    </joint>
+    <joint name="gripper_joint2" type="prismatic">
+        <origin xyz="0 0 2" rpy="0 0 0"/>
+        <parent link="wrist_link"/>
+        <child link="gripper_link"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="0" upper="0.1" effort="5.0" velocity="1.0"/>
+    </joint>
+
+</robot>  
